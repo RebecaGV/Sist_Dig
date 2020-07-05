@@ -20,7 +20,7 @@ public class ControlBD {
 
     private String _usuario = "root";
     private String _pwd = "";
-    private static String _bd = "veterinaria";
+    private static String _bd = "archivo_bd";
     static String _url = "jdbc:mysql://localhost/" + _bd;
     private Connection conn = null;
   
