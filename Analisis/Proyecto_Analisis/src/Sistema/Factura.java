@@ -9,7 +9,7 @@ package Sistema;
  *
  * @author flore
  */
-public class Factura {
+public class Factura implements Comparable<Factura> {
 
     int id;
     int id_fac;
@@ -22,11 +22,12 @@ public class Factura {
 
     public String agregar() {
         String insert;
-        insert = "INSERT INTO `factura`(`id_fac`, `proveedor`, `tipo`) VALUES "
+        insert = "INSERT INTO `factura`(`id_fac`, `proveedor`, `tipo`,`estado`) VALUES "
                 + "('"
                 + this.id_fac + "','"
                 + this.proveedor + "','"
-                + this.tipo
+                + this.tipo + "','"
+                + this.estado
                 + "')";
         return insert;
 
@@ -77,16 +78,15 @@ public class Factura {
                 + "'" + this.id_fac + "'";
         return Update;
     }
-    
+
     public String mostrar() {
         String Select;
         Select = "SELECT * FROM `factura`"
                 + " WHERE `tipo`='"
-                + this.tipo+ "'";
+                + this.tipo + "'";
 
         return Select;
     }
-
 
     public int getEstado() {
         return estado;
@@ -126,6 +126,12 @@ public class Factura {
 
     public void setProveedor(int proveedor) {
         this.proveedor = proveedor;
+    }
+
+    @Override
+    public int compareTo(Factura o) {
+        return (this.id_fac+this.proveedor)-(o.getId_fac()+ o.getProveedor());
+      
     }
 
 }

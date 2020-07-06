@@ -23,7 +23,7 @@ public class Recopilador {
     
     public String agregar() {
         String insert;
-        insert = "INSERT INTO `recopilador`(`folio_inicial`, `folio_final`, `mes`, `año`, `id_caja`, `localizacion`, `estado`) "
+        insert = "INSERT INTO `recopilador`(`folio_inicial`, `folio_final`, `mes`, `año`, `id_caja`, `localizacion`, `estado`, `banco`) "
                 + "VALUES ('"
                 + this.f_inicial 
                 +"','"+ this.f_final 
@@ -32,6 +32,7 @@ public class Recopilador {
                 +"','"+ this.no_caja
                 +"','"+ this.Localizacion
                 +"','"+ this.estado
+                +"','"+ this.Banco
                 +"')";
         return insert;
 
@@ -48,6 +49,7 @@ public class Recopilador {
                 + ",`id_caja`='"+this.no_caja+"'"
                 + ",`localizacion`='"+this.Localizacion+"'"
                 + ",`estado`='"+this.estado+"'"
+                + ",`banco`='"+this.Banco+"'"
                 + " WHERE id_rec="
                 + "'"+this.id_rec+"'";
         return Update;
