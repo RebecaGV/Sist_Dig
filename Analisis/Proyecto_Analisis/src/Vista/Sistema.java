@@ -153,6 +153,7 @@ public class Sistema extends javax.swing.JFrame {
         Mostrar_reco = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         Tabla_recopiladores = new javax.swing.JTable();
+        Limpiar_lista = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
@@ -757,6 +758,13 @@ public class Sistema extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(Tabla_recopiladores);
 
+        Limpiar_lista.setText("Limpiar");
+        Limpiar_lista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Limpiar_listaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout Ver_recoLayout = new javax.swing.GroupLayout(Ver_reco);
         Ver_reco.setLayout(Ver_recoLayout);
         Ver_recoLayout.setHorizontalGroup(
@@ -771,6 +779,8 @@ public class Sistema extends javax.swing.JFrame {
                         .addComponent(anios, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(Mostrar_reco)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Limpiar_lista)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -781,7 +791,8 @@ public class Sistema extends javax.swing.JFrame {
                 .addGroup(Ver_recoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Banco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(anios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Mostrar_reco))
+                    .addComponent(Mostrar_reco)
+                    .addComponent(Limpiar_lista))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
                 .addContainerGap())
@@ -1545,6 +1556,7 @@ public class Sistema extends javax.swing.JFrame {
         String Datos[] = new String[8];
         boolean bandera = false;
         ResultSet resultado;
+        limpiar_tabla3();
 
         if (Banco.getSelectedItem() == "Seleccione" || anios.getSelectedItem() == "Seleccione") {
             JOptionPane.showMessageDialog(null, "Elija el departamento o tipo de documento");
@@ -1610,13 +1622,17 @@ public class Sistema extends javax.swing.JFrame {
             }
             if (bandera == false) {
 
-                JOptionPane.showMessageDialog(null, "No hay prestamos");
+                JOptionPane.showMessageDialog(null, "No hay recopiladores");
 
             }
             Array_reco.clear();
 
         }
     }//GEN-LAST:event_Mostrar_recoActionPerformed
+
+    private void Limpiar_listaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Limpiar_listaActionPerformed
+       limpiar_tabla2();
+    }//GEN-LAST:event_Limpiar_listaActionPerformed
 
     void limpiar() {
         f_inicial.setText("");
@@ -1798,6 +1814,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel Estado_fac;
     private javax.swing.JLabel Estado_rec;
     private javax.swing.JPanel Factura;
+    private javax.swing.JButton Limpiar_lista;
     private javax.swing.JComboBox<String> Local;
     private javax.swing.JButton Mostrar_fac;
     private javax.swing.JButton Mostrar_reco;

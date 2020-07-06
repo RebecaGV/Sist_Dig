@@ -1091,6 +1091,8 @@
                               <Component id="anios" min="-2" pref="135" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="Mostrar_reco" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="Limpiar_lista" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -1106,6 +1108,7 @@
                           <Component id="Banco" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="anios" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="Mostrar_reco" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="Limpiar_lista" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jScrollPane3" pref="539" max="32767" attributes="0"/>
@@ -1182,6 +1185,14 @@
                 </Component>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JButton" name="Limpiar_lista">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Limpiar"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Limpiar_listaActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>
