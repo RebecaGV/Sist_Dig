@@ -1086,9 +1086,9 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPane3" pref="859" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Component id="anios" min="-2" pref="119" max="-2" attributes="0"/>
+                              <Component id="Banco" min="-2" pref="119" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="Banco" min="-2" pref="135" max="-2" attributes="0"/>
+                              <Component id="anios" min="-2" pref="135" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="Mostrar_reco" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -1103,8 +1103,8 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="anios" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="Banco" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="anios" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="Mostrar_reco" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -1115,7 +1115,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JComboBox" name="anios">
+            <Component class="javax.swing.JComboBox" name="Banco">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="7">
@@ -1133,7 +1133,7 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JComboBox" name="Banco">
+            <Component class="javax.swing.JComboBox" name="anios">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="8">
@@ -1156,6 +1156,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Mostrar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Mostrar_recoActionPerformed"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane3">
               <AuxValues>

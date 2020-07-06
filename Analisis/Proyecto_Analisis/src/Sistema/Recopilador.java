@@ -9,7 +9,8 @@ package Sistema;
  *
  * @author flore
  */
-public class Recopilador {
+public class Recopilador implements  Comparable<Recopilador>{
+
     int f_inicial;
     int f_final;
     String mes;
@@ -17,45 +18,45 @@ public class Recopilador {
     String Localizacion;
     String Banco;
     int no_caja;
-    int estado;   
+    int estado;
     int folio;
     int id_rec;
-    
+
     public String agregar() {
         String insert;
         insert = "INSERT INTO `recopilador`(`folio_inicial`, `folio_final`, `mes`, `año`, `id_caja`, `localizacion`, `estado`, `banco`) "
                 + "VALUES ('"
-                + this.f_inicial 
-                +"','"+ this.f_final 
-                +"','"+ this.mes 
-                +"','"+ this.anio
-                +"','"+ this.no_caja
-                +"','"+ this.Localizacion
-                +"','"+ this.estado
-                +"','"+ this.Banco
-                +"')";
+                + this.f_inicial
+                + "','" + this.f_final
+                + "','" + this.mes
+                + "','" + this.anio
+                + "','" + this.no_caja
+                + "','" + this.Localizacion
+                + "','" + this.estado
+                + "','" + this.Banco
+                + "')";
         return insert;
 
     }
 
-    public String modificar(){
+    public String modificar() {
         String Update;
-     
-        Update="UPDATE `recopilador` "
-                + "SET `folio_inicial`='"+this.f_inicial+"'"
-                + ",`folio_final`='"+this.f_final+"'"
-                + ",`mes`='"+this.mes+"'"
-                + ",`año`='"+this.anio+"'"
-                + ",`id_caja`='"+this.no_caja+"'"
-                + ",`localizacion`='"+this.Localizacion+"'"
-                + ",`estado`='"+this.estado+"'"
-                + ",`banco`='"+this.Banco+"'"
+
+        Update = "UPDATE `recopilador` "
+                + "SET `folio_inicial`='" + this.f_inicial + "'"
+                + ",`folio_final`='" + this.f_final + "'"
+                + ",`mes`='" + this.mes + "'"
+                + ",`año`='" + this.anio + "'"
+                + ",`id_caja`='" + this.no_caja + "'"
+                + ",`localizacion`='" + this.Localizacion + "'"
+                + ",`estado`='" + this.estado + "'"
+                + ",`banco`='" + this.Banco + "'"
                 + " WHERE id_rec="
-                + "'"+this.id_rec+"'";
+                + "'" + this.id_rec + "'";
         return Update;
-        
+
     }
-    
+
     public String eliminar() {
         String Delete;
         Delete = "DELETE FROM `recopilador` WHERE `folio_inicial`='"
@@ -63,40 +64,51 @@ public class Recopilador {
 
         return Delete;
     }
-     
-    public String buscar(){
-         String Select;
-        Select = "SELECT * FROM `recopilador` WHERE "+
-                "folio_inicial='"
-                + this.f_inicial+"' || "
+
+    public String buscar() {
+        String Select;
+        Select = "SELECT * FROM `recopilador` WHERE "
+                + "folio_inicial='"
+                + this.f_inicial + "' || "
                 + "folio_final='"
-                + this.f_final+"'" ;
+                + this.f_final + "'";
 
         return Select;
     }
-    
-    public String buscarFolio(){
-         String Select;
-        Select = "SELECT * FROM `recopilador` WHERE "+
-                "folio_inicial <='"
-                + this.folio+"' && "
+
+    public String buscarFolio() {
+        String Select;
+        Select = "SELECT * FROM `recopilador` WHERE "
+                + "folio_inicial <='"
+                + this.folio + "' && "
                 + "folio_final >='"
-                + this.folio+"'" ;
+                + this.folio + "'";
 
         return Select;
     }
-   
-    public String estado(){
-          String Update;
-     
-        Update="UPDATE `recopilador` "
-                + "SET" 
-                + "`estado`='"+this.estado+"'"
+
+    public String mostrar() {
+        String Select;
+        Select = "SELECT * FROM `recopilador` WHERE "
+                + "año ='"
+                + this.anio+ "' && "
+                + "banco ='"
+                + this.Banco+ "'";
+
+        return Select;
+    }
+
+    public String estado() {
+        String Update;
+
+        Update = "UPDATE `recopilador` "
+                + "SET"
+                + "`estado`='" + this.estado + "'"
                 + " WHERE folio_inicial="
-                + "'"+this.f_inicial+"'";
+                + "'" + this.f_inicial + "'";
         return Update;
     }
-   
+
     public Recopilador() {
     }
 
@@ -179,5 +191,10 @@ public class Recopilador {
     public void setEstado(int estado) {
         this.estado = estado;
     }
-    
+
+    @Override
+    public int compareTo(Recopilador o) {
+        return (this.f_inicial- o.getF_inicial());  
+                }
+
 }

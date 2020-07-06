@@ -25,20 +25,21 @@ import javax.swing.table.DefaultTableModel;
  * @author flore
  */
 public class Sistema extends javax.swing.JFrame {
-    
+
     Recopilador aux_reco;
     Departamento aux_dep = new Departamento();
     Factura aux_fac = new Factura();
     ArrayList<Factura> Array_fac = new ArrayList<Factura>();
     ArrayList<Prestamo> Array_pres = new ArrayList<Prestamo>();
+    ArrayList<Recopilador> Array_reco = new ArrayList<Recopilador>();
     Prestamo aux_pres = new Prestamo();
     ControlBD db = new ControlBD();
     DefaultTableModel tabla1 = new DefaultTableModel();
     DefaultTableModel tabla2 = new DefaultTableModel();
     DefaultTableModel tabla3 = new DefaultTableModel();
-    
+
     public Sistema() {
-        
+
         this.aux_reco = new Recopilador();
         initComponents();
         DefaultTableModel tabla1;
@@ -47,29 +48,29 @@ public class Sistema extends javax.swing.JFrame {
             public boolean isCellEditable(int Fila, int Colum) {
                 return false;
             }
-            
+
         };
-        
+
         DefaultTableModel tabla2;
         tabla2 = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int Fila, int Colum) {
                 return false;
             }
-            
+
         };
-        
+
         DefaultTableModel tabla3;
         tabla3 = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int Fila, int Colum) {
                 return false;
             }
-            
+
         };
         cargarColumnas();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -147,8 +148,8 @@ public class Sistema extends javax.swing.JFrame {
         jLabel118 = new javax.swing.JLabel();
         buscar_pres = new javax.swing.JButton();
         Ver_reco = new javax.swing.JPanel();
-        anios = new javax.swing.JComboBox<>();
         Banco = new javax.swing.JComboBox<>();
+        anios = new javax.swing.JComboBox<>();
         Mostrar_reco = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         Tabla_recopiladores = new javax.swing.JTable();
@@ -732,11 +733,16 @@ public class Sistema extends javax.swing.JFrame {
 
         Sistema.addTab("Prestamo", Prestamo);
 
-        anios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Bajio", "Bancomer", "Santander", "Bajio DLL", "Bancomer DLL", "Santander DLL" }));
+        Banco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Bajio", "Bancomer", "Santander", "Bajio DLL", "Bancomer DLL", "Santander DLL" }));
 
-        Banco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "2019", "2020", "2021", "2022", "2023", "2024", "2025" }));
+        anios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "2019", "2020", "2021", "2022", "2023", "2024", "2025" }));
 
         Mostrar_reco.setText("Mostrar");
+        Mostrar_reco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Mostrar_recoActionPerformed(evt);
+            }
+        });
 
         Tabla_recopiladores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -760,9 +766,9 @@ public class Sistema extends javax.swing.JFrame {
                 .addGroup(Ver_recoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 859, Short.MAX_VALUE)
                     .addGroup(Ver_recoLayout.createSequentialGroup()
-                        .addComponent(anios, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Banco, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Banco, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(anios, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(Mostrar_reco)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -773,8 +779,8 @@ public class Sistema extends javax.swing.JFrame {
             .addGroup(Ver_recoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(Ver_recoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(anios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Banco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(anios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Mostrar_reco))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
@@ -808,7 +814,7 @@ public class Sistema extends javax.swing.JFrame {
 
             //busca que exista el prestamo
             resultado = this.db.getQuery(this.aux_pres.buscar());
-            
+
             try {
                 //Si hay resultados se ejecuta este if
                 if (resultado.next()) {
@@ -829,7 +835,7 @@ public class Sistema extends javax.swing.JFrame {
                     switch (aux_pres.getId_dep()) {
                         case 1:
                             dep.setSelectedItem("Auditoria interna");
-                            
+
                             break;
                         case 2:
                             dep.setSelectedItem("Auditoria externa");
@@ -841,7 +847,7 @@ public class Sistema extends javax.swing.JFrame {
                     //se asignan valores a pantalla de fecha y folio
                     fecha_pres.setText(aux_pres.getFecha_pres());
                     folio_fac.setText(String.valueOf(aux_pres.getFolio_fac()));
-                    
+
                     id_pres.setEditable(false);
                 } else {
                     JOptionPane.showMessageDialog(null, "No existe ese id o No. de factura");
@@ -849,17 +855,17 @@ public class Sistema extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(Sistema.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
     }//GEN-LAST:event_buscar_presActionPerformed
 
     private void eliminar_presActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminar_presActionPerformed
         if (id_pres.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Llene el id para eliminar");
-        } else{
+        } else {
             aux_pres.setId_pres(Integer.parseInt(id_pres.getText()));
             db.setQuery(aux_pres.eliminar());
-            
+
         }
         limpiar_prestamo();
     }//GEN-LAST:event_eliminar_presActionPerformed
@@ -883,17 +889,17 @@ public class Sistema extends javax.swing.JFrame {
             } else {
                 aux_pres.setId_dep(3);
             }
-            
+
             aux_dep.setId_dep(aux_pres.getId_dep());
-            
+
             if (tipo_doc1.getSelectedItem() == "Recopilador") {
                 aux_pres.setTipo(1);
             } else {
                 aux_pres.setTipo(2);
             }
-            
+
             resultado = this.db.getQuery(aux_dep.encargado());
-            
+
             try {
                 if (resultado.next()) {
                     aux_dep.setNom_encargado(resultado.getString("encargado"));
@@ -901,16 +907,16 @@ public class Sistema extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(Sistema.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
             resultado = this.db.getQuery(aux_pres.verPrestamos());
 
             //Consulta sql
             try {
-                
+
                 while (resultado.next()) {
-                    
+
                     bandera = true;
-                    
+
                     Prestamo p = new Prestamo();
                     p.setId_pres(resultado.getInt("id_pres"));
                     p.setId_dep(resultado.getInt("id_dep"));
@@ -922,16 +928,17 @@ public class Sistema extends javax.swing.JFrame {
                     p.setTipo(aux_pres.getTipo());
                     p.setFecha_pres(String.valueOf(resultado.getDate("fecha_prestamo")));
                     p.setFecha_ent(String.valueOf(resultado.getDate("fecha_entrega")));
-                    
+
                     Array_pres.add(p);
-                    
+
                 }
+                Collections.sort(Array_pres);
                 for (int i = 0; i < Array_pres.size(); i++) {
                     Prestamo p = new Prestamo();
                     p = Array_pres.get(i);
-                    
+
                     Datos[0] = String.valueOf(p.getId_pres());
-                    
+
                     switch (p.getId_dep()) {
                         case 1:
                             Datos[1] = "Auditoria Interna";
@@ -943,35 +950,35 @@ public class Sistema extends javax.swing.JFrame {
                             Datos[1] = "Contabilidad";
                             break;
                     }
-                    
+
                     Datos[2] = aux_dep.getNom_encargado();
-                    
+
                     if (p.getTipo() == 1) {
                         Datos[3] = "Recopilador";
                     } else {
                         Datos[3] = "Factura";
                     }
-                    
+
                     Datos[4] = p.getFecha_pres();
-                    
+
                     if (p.getFecha_ent().equals("1000-01-01")) {
                         Datos[5] = "----/--/--";
                     } else {
                         Datos[5] = p.getFecha_ent();
                     }
-                    
+
                     Datos[6] = String.valueOf(p.getFolio_fac());
-                    
+
                     tabla1.addRow(Datos);
-                    
+
                 }
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Error al cargar los Datos\n" + ex);
             }
             if (bandera == false) {
-                
+
                 JOptionPane.showMessageDialog(null, "No hay prestamos");
-                
+
             }
             Array_pres.clear();
         }
@@ -985,17 +992,17 @@ public class Sistema extends javax.swing.JFrame {
         } else {
             aux_pres.setId_pres(Integer.parseInt(id_pres.getText()));
             aux_pres.setFecha_ent(fecha_entrega.getText());
-            
+
             aux_reco.setF_inicial(Integer.parseInt(folio_fac.getText()));
             aux_reco.setEstado(0);
-            
+
             this.db.setQuery(aux_reco.estado());
             if (tipo_doc2.getSelectedItem() == "Recopilador") {
                 aux_pres.setTipo(1);
             } else {
                 aux_pres.setTipo(2);
             }
-            
+
             this.db.setQuery(aux_pres.finalizar());
             limpiar_prestamo();
         }
@@ -1021,18 +1028,18 @@ public class Sistema extends javax.swing.JFrame {
                 aux_pres.setId_dep(3);
             }
             aux_dep.setId_dep(aux_pres.getId_dep());
-            
+
             if (tipo_doc.getSelectedItem() == "Recopilador") {
                 aux_pres.setTipo(1);
                 aux_reco.setF_inicial(Integer.parseInt(folio_fac.getText()));
                 aux_reco.setF_final(0);
                 aux_reco.setEstado(1);
-                
+
                 resultado = db.getQuery(aux_reco.buscar());
-                
+
                 try {
                     if (resultado.next()) {
-                        
+
                         if (aux == 1 && aux_pres.getTipo() == 2) {
                             bandera = 4;
                         } else if (aux == 2 && aux_pres.getTipo() == 1) {
@@ -1041,7 +1048,7 @@ public class Sistema extends javax.swing.JFrame {
                             bandera = 3;
                         }
                         db.setQuery(aux_reco.estado());
-                        
+
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(Sistema.class.getName()).log(Level.SEVERE, null, ex);
@@ -1051,33 +1058,33 @@ public class Sistema extends javax.swing.JFrame {
                 aux_fac.setId_fac(Integer.parseInt(folio_fac.getText()));
                 aux_fac.setId(0);
                 aux_fac.setEstado(1);
-                
+
                 resultado = db.getQuery(aux_fac.buscar());
-                
+
                 try {
                     if (resultado.next()) {
-                        
+
                         if (aux == 1 && aux_pres.getTipo() == 2) {
                             bandera = 4;
                         } else if (aux == 2 && aux_pres.getTipo() == 1) {
                             bandera = 4;
                         } else if (aux == aux_pres.getTipo()) {
                             bandera = 3;
-                            
+
                             db.setQuery(aux_fac.estado());
                         }
-                        
+
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(Sistema.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            
+
             if (bandera == 3) {
                 aux_pres.setFecha_pres(fecha_pres.getText());
                 aux_pres.setFolio_fac(Integer.parseInt(folio_fac.getText()));
                 aux_pres.setFecha_ent("1000/01/01");
-                
+
                 this.db.setQuery(aux_pres.modificar());
             } else if (bandera == 1) {
                 JOptionPane.showMessageDialog(null, "no existe ese documento");
@@ -1094,7 +1101,7 @@ public class Sistema extends javax.swing.JFrame {
     private void crear_presActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crear_presActionPerformed
         ResultSet resultado;
         int bandera = 1;
-        
+
         if (dep.getSelectedItem() == "Seleccione"
                 || tipo_doc.getSelectedItem() == "Seleccione"
                 || fecha_pres.getText().isEmpty()
@@ -1109,18 +1116,18 @@ public class Sistema extends javax.swing.JFrame {
                 aux_pres.setId_dep(3);
             }
             aux_dep.setId_dep(aux_pres.getId_dep());
-            
+
             if (tipo_doc.getSelectedItem() == "Recopilador") {
                 aux_pres.setTipo(1);
                 aux_reco.setF_inicial(Integer.parseInt(folio_fac.getText()));
                 aux_reco.setF_final(0);
                 aux_reco.setEstado(1);
-                
+
                 resultado = db.getQuery(aux_reco.buscar());
-                
+
                 try {
                     if (resultado.next()) {
-                        
+
                         if (resultado.getInt("estado") == 1) {
                             bandera = 2;
                             JOptionPane.showMessageDialog(null, "Documento en prestamo");
@@ -1137,9 +1144,9 @@ public class Sistema extends javax.swing.JFrame {
                 aux_fac.setId_fac(Integer.parseInt(folio_fac.getText()));
                 aux_fac.setId(0);
                 aux_fac.setEstado(1);
-                
+
                 resultado = db.getQuery(aux_fac.buscar());
-                
+
                 try {
                     if (resultado.next()) {
                         if (resultado.getInt("estado") == 1) {
@@ -1149,34 +1156,34 @@ public class Sistema extends javax.swing.JFrame {
                             bandera = 3;
                             db.setQuery(aux_fac.estado());
                         }
-                        
+
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(Sistema.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            
+
             if (bandera == 3) {
                 aux_pres.setFecha_pres(fecha_pres.getText());
                 aux_pres.setFolio_fac(Integer.parseInt(folio_fac.getText()));
                 aux_pres.setFecha_ent("1000/01/01");
-                
+
                 System.out.println(aux_pres.agregar());
                 this.db.setQuery(aux_pres.agregar());
             } else if (bandera == 1) {
                 JOptionPane.showMessageDialog(null, "no existe ese documento");
             }
-            
+
         }
         limpiar_prestamo();
     }//GEN-LAST:event_crear_presActionPerformed
 //mostrar facturas
     private void Mostrar_facActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Mostrar_facActionPerformed
         String Datos[] = new String[5];
-        
+
         boolean bandera = false;
         ResultSet resultado;
-        
+
         if (tipo1.getSelectedItem() == "Seleccione") {
             JOptionPane.showMessageDialog(null, "Elija un tipo");
         } else {
@@ -1189,28 +1196,28 @@ public class Sistema extends javax.swing.JFrame {
                 this.aux_fac.setTipo(3);
             }
             resultado = db.getQuery(this.aux_fac.mostrar());
-            
+
             try {
                 while (resultado.next()) {
                     bandera = true;
-                    
+
                     Factura n = new Factura();
                     n.setId(resultado.getInt("id"));
                     n.setId_fac(resultado.getInt("id_fac"));
                     n.setProveedor(resultado.getInt("proveedor"));
                     n.setEstado(resultado.getInt("estado"));
                     n.setTipo(resultado.getInt("tipo"));
-                    
+
                     Array_fac.add(n);
-                    
+
                 }
                 Collections.sort(Array_fac);
                 for (int i = 0; i < Array_fac.size(); i++) {
                     Factura n = new Factura();
-                    
+
                     n = Array_fac.get(i);
                     Datos[0] = String.valueOf(n.getId());
-                    
+
                     Datos[1] = String.valueOf(n.getId_fac());
                     switch (n.getTipo()) {
                         case 1:
@@ -1234,12 +1241,12 @@ public class Sistema extends javax.swing.JFrame {
                 Array_fac.clear();
             } catch (SQLException ex) {
                 Logger.getLogger(Sistema.class.getName()).log(Level.SEVERE, null, ex);
-                
+
             }
             if (bandera == false) {
-                
+
                 JOptionPane.showMessageDialog(null, "No hay registros");
-                
+
             }
         }
 
@@ -1262,7 +1269,7 @@ public class Sistema extends javax.swing.JFrame {
                 this.aux_fac.setId(Integer.parseInt(id.getText()));
             }
             resultado = this.db.getQuery(this.aux_fac.buscar());
-            
+
             try {
                 if (resultado.next()) {
                     this.aux_fac.setId_fac(resultado.getInt("id_fac"));
@@ -1270,11 +1277,11 @@ public class Sistema extends javax.swing.JFrame {
                     this.aux_fac.setTipo(resultado.getInt("tipo"));
                     this.aux_fac.setId(resultado.getInt("id"));
                     this.aux_fac.setEstado(resultado.getInt("estado"));
-                    
+
                     id_fac.setText(String.valueOf(aux_fac.getId_fac()));
                     prov.setText(String.valueOf(aux_fac.getProveedor()));
                     id.setText(String.valueOf(aux_fac.getId()));
-                    
+
                     if (aux_fac.getEstado() == 0) {
                         Estado_fac.setText("Disponible");
                     } else {
@@ -1298,7 +1305,7 @@ public class Sistema extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(Sistema.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
     }//GEN-LAST:event_Buscar_facActionPerformed
 //Eliminar factura
@@ -1328,7 +1335,7 @@ public class Sistema extends javax.swing.JFrame {
                 this.aux_fac.setTipo(3);
             }
             System.out.println(aux_fac.agregar());
-            
+
             db.setQuery(aux_fac.modificar());
             limpiar_fac();
         }
@@ -1343,7 +1350,7 @@ public class Sistema extends javax.swing.JFrame {
             this.aux_fac.setId_fac(Integer.parseInt(id_fac.getText()));
             this.aux_fac.setProveedor(Integer.parseInt(prov.getText()));
             this.aux_fac.setEstado(0);
-            
+
             if (tipo.getSelectedItem() == "Materia Prima") {
                 this.aux_fac.setTipo(1);
             } else if (tipo.getSelectedItem() == "Servicio") {
@@ -1352,10 +1359,10 @@ public class Sistema extends javax.swing.JFrame {
                 this.aux_fac.setTipo(3);
             }
             System.out.println(aux_fac.agregar());
-            
+
             db.setQuery(aux_fac.agregar());
             limpiar_fac();
-            
+
         }
     }//GEN-LAST:event_Agregar_facActionPerformed
 //Buscar recopilador por folio especifico
@@ -1365,7 +1372,7 @@ public class Sistema extends javax.swing.JFrame {
         } else {
             //Objeto para datos consulta
             ResultSet resultado;
-            
+
             aux_reco.setFolio(Integer.parseInt(folio.getText()));
             resultado = this.db.getQuery(this.aux_reco.buscarFolio());
             no_caja.setEditable(true);
@@ -1380,7 +1387,7 @@ public class Sistema extends javax.swing.JFrame {
                     this.aux_reco.setNo_caja(resultado.getInt("id_caja"));
                     this.aux_reco.setEstado(resultado.getInt("estado"));
                     this.aux_reco.setId_rec(resultado.getInt("id_rec"));
-                    
+
                     f_inicial.setText(String.valueOf(this.aux_reco.getF_inicial()));
                     f_final.setText(String.valueOf(this.aux_reco.getF_final()));
                     mes.setSelectedItem(this.aux_reco.getMes());
@@ -1393,14 +1400,14 @@ public class Sistema extends javax.swing.JFrame {
                     } else {
                         Estado_rec.setText("En prestamo");
                     }
-                    
+
                 } else {
                     JOptionPane.showMessageDialog(null, "No existe ese recopilador");
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(Sistema.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
     }//GEN-LAST:event_Buscar2ActionPerformed
 //limpiar recopilador
@@ -1424,7 +1431,7 @@ public class Sistema extends javax.swing.JFrame {
             } else {
                 aux_reco.setF_final(Integer.parseInt(f_final.getText()));
             }
-            
+
             resultado = this.db.getQuery(this.aux_reco.buscar());
             no_caja.setEditable(true);
             try {
@@ -1438,7 +1445,7 @@ public class Sistema extends javax.swing.JFrame {
                     this.aux_reco.setNo_caja(resultado.getInt("id_caja"));
                     this.aux_reco.setEstado(resultado.getInt("estado"));
                     this.aux_reco.setId_rec(resultado.getInt("id_rec"));
-                    
+
                     f_inicial.setText(String.valueOf(this.aux_reco.getF_inicial()));
                     f_final.setText(String.valueOf(this.aux_reco.getF_final()));
                     mes.setSelectedItem(this.aux_reco.getMes());
@@ -1451,7 +1458,7 @@ public class Sistema extends javax.swing.JFrame {
                     } else {
                         Estado_rec.setText("En prestamo");
                     }
-                    
+
                 } else {
                     JOptionPane.showMessageDialog(null, "No existe ese recopilador");
                     limpiar();
@@ -1459,7 +1466,7 @@ public class Sistema extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(Sistema.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
     }//GEN-LAST:event_BuscarActionPerformed
 //Eliminar recopilador
@@ -1486,7 +1493,7 @@ public class Sistema extends javax.swing.JFrame {
                 || Local.getSelectedItem() == "Seleccione"
                 || no_caja.getText().isEmpty()
                 || banco_reco.getSelectedItem() == "Seleccione") {
-            
+
             JOptionPane.showMessageDialog(null, "Llene los campos");
         } else {
             aux_reco.setF_inicial(Integer.parseInt(f_inicial.getText()));
@@ -1497,7 +1504,7 @@ public class Sistema extends javax.swing.JFrame {
             aux_reco.setBanco((String) banco_reco.getSelectedItem());
             aux_reco.setNo_caja(Integer.parseInt(no_caja.getText()));
             aux_reco.setEstado(0);
-            
+
             if (aux_reco.getF_inicial() > aux_reco.getF_final()) {
                 JOptionPane.showMessageDialog(null, "El folio inicial no puede ser mayor que el folio final");
             } else {
@@ -1514,7 +1521,7 @@ public class Sistema extends javax.swing.JFrame {
                 || anio.getText().isEmpty()
                 || Local.getSelectedItem() == "Seleccione"
                 || no_caja.getText().isEmpty()) {
-            
+
             JOptionPane.showMessageDialog(null, "Llene los campos");
         } else {
             aux_reco.setF_inicial(Integer.parseInt(f_inicial.getText()));
@@ -1524,7 +1531,7 @@ public class Sistema extends javax.swing.JFrame {
             aux_reco.setLocalizacion((String) Local.getSelectedItem());
             aux_reco.setBanco((String) banco_reco.getSelectedItem());
             aux_reco.setNo_caja(Integer.parseInt(no_caja.getText()));
-            
+
             if (aux_reco.getF_inicial() > aux_reco.getF_final()) {
                 JOptionPane.showMessageDialog(null, "El folio inicial no puede ser mayor que el folio final");
             } else {
@@ -1533,7 +1540,84 @@ public class Sistema extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_modificar_recActionPerformed
-    
+
+    private void Mostrar_recoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Mostrar_recoActionPerformed
+        String Datos[] = new String[8];
+        boolean bandera = false;
+        ResultSet resultado;
+
+        if (Banco.getSelectedItem() == "Seleccione" || anios.getSelectedItem() == "Seleccione") {
+            JOptionPane.showMessageDialog(null, "Elija el departamento o tipo de documento");
+
+        } else {
+            limpiar();
+            aux_reco.setAnio(Integer.parseInt((String) anios.getSelectedItem()));
+            aux_reco.setBanco((String) Banco.getSelectedItem());
+
+            resultado = this.db.getQuery(aux_reco.mostrar());
+
+            //Consulta sql
+            try {
+
+                while (resultado.next()) {
+
+                    bandera = true;
+
+                    Recopilador r = new Recopilador();
+                    r.setF_inicial(resultado.getInt("folio_inicial"));
+                    r.setF_final(resultado.getInt("folio_final"));
+                    r.setMes(resultado.getString("mes"));
+                    r.setAnio(resultado.getInt("año"));
+                    r.setLocalizacion(resultado.getString("localizacion"));
+                    r.setBanco(resultado.getString("banco"));
+                    r.setNo_caja(resultado.getInt("id_caja"));
+                    r.setEstado(resultado.getInt("estado"));
+                    r.setId_rec(resultado.getInt("id_rec"));
+                    Array_reco.add(r);
+
+                }
+                Collections.sort(Array_reco);
+                for (int i = 0; i < Array_reco.size(); i++) {
+                    Recopilador r = new Recopilador();
+                    r= Array_reco.get(i);
+
+                    Datos[0] = String.valueOf(r.getF_inicial());
+                    Datos[1] = String.valueOf(r.getF_final());
+                    Datos[2] = r.getMes();
+                    Datos[3] = String.valueOf(r.getAnio());
+                    Datos[4] = r.getBanco();
+                    Datos[5] = r.getLocalizacion();
+                    Datos[6] = String.valueOf(r.getNo_caja());
+
+                    switch (r.getEstado()) {
+                        case 0:
+                            Datos[7] = "Disponible";
+                            break;
+                        case 1:
+                            Datos[7] = "Prestamo";
+                            break;
+                    }
+
+                  
+
+               
+
+                    tabla3.addRow(Datos);
+
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al cargar los Datos\n" + ex);
+            }
+            if (bandera == false) {
+
+                JOptionPane.showMessageDialog(null, "No hay prestamos");
+
+            }
+            Array_reco.clear();
+
+        }
+    }//GEN-LAST:event_Mostrar_recoActionPerformed
+
     void limpiar() {
         f_inicial.setText("");
         f_final.setText("");
@@ -1544,7 +1628,7 @@ public class Sistema extends javax.swing.JFrame {
         no_caja.setText("0");
         folio.setText("");
         Estado_rec.setText("");
-        
+
         aux_reco.setF_inicial(0);
         aux_reco.setF_final(0);
         aux_reco.setMes("");
@@ -1553,9 +1637,9 @@ public class Sistema extends javax.swing.JFrame {
         aux_reco.setBanco("");
         aux_reco.setNo_caja(0);
         aux_reco.setId_rec(0);
-        
+
     }
-    
+
     void limpiar_fac() {
         id_fac.setText("");
         prov.setText("");
@@ -1563,15 +1647,15 @@ public class Sistema extends javax.swing.JFrame {
         id.setEditable(true);
         id.setText("");
         Estado_fac.setText("");
-        
+
         this.aux_fac.setId(0);
         this.aux_fac.setId_fac(0);
         this.aux_fac.setProveedor(0);
         this.aux_fac.setTipo(0);
         limpiar_tabla2();
-        
+
     }
-    
+
     void limpiar_prestamo() {
         id_pres.setText("");
         id_pres.setEditable(true);
@@ -1583,7 +1667,7 @@ public class Sistema extends javax.swing.JFrame {
         fecha_pres.setText("");
         fecha_entrega.setText("");
         folio_fac.setText("");
-        
+
         aux_pres.setFecha_ent("");
         aux_pres.setFecha_pres("");
         aux_pres.setFolio_fac(0);
@@ -1591,7 +1675,7 @@ public class Sistema extends javax.swing.JFrame {
         aux_pres.setId_pres(0);
         aux_pres.setTipo(0);
         limpiar_tabla1();
-        
+
     }
 
     //Tablas
@@ -1606,7 +1690,7 @@ public class Sistema extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
         }
     }
-    
+
     private void limpiar_tabla2() {
         try {
             this.tabla2 = (DefaultTableModel) Tabla_factura.getModel();
@@ -1618,7 +1702,19 @@ public class Sistema extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
         }
     }
-    
+
+    private void limpiar_tabla3() {
+        try {
+            this.tabla3 = (DefaultTableModel) Tabla_recopiladores.getModel();
+            int filas = tabla3.getRowCount();
+            for (int i = 0; filas > i; i++) {
+                tabla3.removeRow(0);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
+        }
+    }
+
     public void cargarColumnas() {
 
         //tabla prestamos
@@ -1629,7 +1725,7 @@ public class Sistema extends javax.swing.JFrame {
         tabla1.addColumn("Fecha Prestamo");
         tabla1.addColumn("Fecha Entrega");
         tabla1.addColumn("No. Factura/Folio inicial");
-        
+
         this.Tabla_prestamo.setModel(tabla1);
 
         //Tabla facturas
@@ -1638,7 +1734,7 @@ public class Sistema extends javax.swing.JFrame {
         tabla2.addColumn("Tipo");
         tabla2.addColumn("Proveedor");
         tabla2.addColumn("Estado");
-        
+
         this.Tabla_factura.setModel(tabla2);
 
         //Tabla Recopiladores
@@ -1650,9 +1746,9 @@ public class Sistema extends javax.swing.JFrame {
         tabla3.addColumn("Localización");
         tabla3.addColumn("No. Caja");
         tabla3.addColumn("Estado");
-        
+
         this.Tabla_recopiladores.setModel(tabla3);
-        
+
     }
 
     /**
